@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Map with Images</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
+  <style>
+    #map {
+      height: 100vh;
+    }
+    .popup-content {
+      text-align: center;
+    }
+    .popup-content img {
+      max-width: 200px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  // Initialize map
+  var map = L.map('map').setView([34.0522, -118.2437], 10); // Example: LA center
+
+  // Add OpenStreetMap baselayer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Marker data
+  var points = [
+    {
+      title: "Point One",
+      description: "This is the first point.",
+      image: "images/point1.jpg",
+      lat: 34.0522,
+      lon: -118.2437
+    },
+    {
+      title: "Point Two",
+      description: "This is the second point.",
+      image: "images/point2.jpg",
+      lat: 34.0622,
+      lon: -118.2537
+    },
+    {
+      title: "Point Three",
+      description: "This is the third point.",
+      image: "images/point3.jpg",
+      lat: 34.0722,
+      lon: -118.2637
+    },
+    {
+      title: "Point Four",
+      description: "This is the fourth point.",
+      image: "images/point4.jpg",
+      lat: 34.0822,
+      lon: -118.2737
+    }
+  ];
+
+  // Add markers
+  points.forEach(function(point) {
+    var popupContent = `
+      <div class="popup-content">
+        <strong>${point.title}</strong><br>
+        ${point.description}<br>
+        <img src="${point.image}" alt="${point.title}" />
+      </div>
+    `;
+    L.marker([point.lat, point.lon]).addTo(map)
+      .bindPopup(popupContent);
+  });
+
+</script>
+
+</body>
+</html>
